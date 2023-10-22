@@ -1,4 +1,4 @@
-# Github webhook function for Misskey
+# Github webhook function for Misskey　
 
 Githubからの各種通知をMisskeyのに投稿します。
 
