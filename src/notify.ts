@@ -22,7 +22,7 @@ export default async function handler(
 			case "issue_comment":
 				await issue_comment(request.body)
 				break;
-			case "pull":
+			case "pull_request":
 				 await pullRequest(request.body)
 				break;
 			case "push":
@@ -146,7 +146,7 @@ async function fork(event : any){
 }
 
 async function pullRequest(event: any) {
-	const { pr, action }  = event
+	const { pull_request, action }  = event
 	let text: string;
 	switch (action) {
 		case 'opened': text = `📦 New Pull Request: "${pr.title}"\n${pr.html_url}`; break;
@@ -156,7 +156,9 @@ async function pullRequest(event: any) {
 				? `💯 Pull Request Merged!: "${pr.title}"\n${pr.html_url}`
 				: `🚫 Pull Request Closed: "${pr.title}"\n${pr.html_url}`;
 			break;
-		default: return;
+		default: 
+			text = `action is ${action} `
+			;
 	}
 	await post(text);
 }
